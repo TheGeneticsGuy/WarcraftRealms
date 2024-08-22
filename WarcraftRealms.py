@@ -103,14 +103,8 @@ def build_export_text():
     export = '\nlocal Realms = {};\n'.format('{}')
     export += 'local initialized = false\n\n'
     export += '-- Get List of all Realm Names\n'
-    export += 'GRM.GetRealmNames = function()\n'
-    export += '    if not initialized then\n        InitializeRealms()\n    end\n\n'
 
-    export += '    local region = string.lower(GetCurrentRegionName())\n    if region == \"cn\" then\n        region = \"us\"\n    end\n\n'
-
-    export += '    return Realms[region][GetLocale()]\nend'
-
-    export += '\n\n-- Only Initialize if ever needed. No need to pull into memory otherwise.'
+    export += '\n-- Only Initialize if ever needed. No need to pull into memory otherwise.'
     export += '\nlocal InitializeRealms = function()\n    initialized = true\n\n'
 
     for k in range ( len ( namespaces ) ):
@@ -146,6 +140,13 @@ def build_export_text():
             export += '    end\n\n'
 
     export += 'end'
+
+    # Add a function in Lua format
+    export += 'GRM.GetRealmNames = function()\n'
+    export += '    if not initialized then\n        InitializeRealms()\n    end\n\n'
+    export += '    local region = string.lower(GetCurrentRegionName())\n    if region == \"cn\" then\n        region = \"us\"\n    end\n\n'
+    export += '    return Realms[region][GetLocale()]\nend'
+
     print(export)
     create_file ( "GRM_Realms.lua" , export )   # Let's create the file. This will overwrite any older ones
 
