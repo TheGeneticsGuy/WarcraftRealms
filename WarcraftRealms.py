@@ -111,7 +111,7 @@ def build_export_text():
     export += '    return Realms[region][GetLocale()]\nend'
 
     export += '\n\n-- Only Initialize if ever needed. No need to pull into memory otherwise.'
-    export += '\nlocal function = InitializeRealms()\n    initialized = true\n\n'
+    export += '\nlocal InitializeRealms = function()\n    initialized = true\n\n'
 
     for k in range ( len ( namespaces ) ):
 

@@ -16,4 +16,4 @@
 
 **OUTPUT EXAMPLE:**
 
-![Outputs Lua Compatible](https://i.imgur.com/RDcbraQ.jpeg)
+![Outputs Lua Compatible](https://i.imgur.com/8wjN52j.jpeg)
