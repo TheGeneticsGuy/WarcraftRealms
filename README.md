@@ -13,3 +13,7 @@
 * GRM has the ability to ban players. Being able to assist by using an autocomplete list of realm names will greatly help in players typing the server name.
 
 * This is critical as of 11.0 release (The War Within patch) as it introduced cross-realm guilds. Now anyone can join.  You are not limited to just connected realms
+
+**OUTPUT EXAMPLE:**
+
+![Outputs Lua Compatible](https://i.imgur.com/RDcbraQ.jpeg)
