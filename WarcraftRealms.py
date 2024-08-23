@@ -147,7 +147,6 @@ def build_export_text():
     export += '    local region = string.lower(GetCurrentRegionName())\n    if region == \"cn\" then\n        region = \"us\"\n    end\n\n'
     export += '    return Realms[region][GetLocale()]\nend'
 
-    print(export)
     create_file ( "GRM_Realms.lua" , export )   # Let's create the file. This will overwrite any older ones
 
 def create_file ( nameOfFile , output ):
@@ -158,6 +157,7 @@ def create_file ( nameOfFile , output ):
         file.write ( f'-- Realms updated on: {timestamp} UTC\n')
         file.write ( f'-- Author: Aaron Topping (GenomeWhisperer) - Using custom written program Realms.py\n\n')
         file.write(output)
+        print(f'{nameOfFile} has been created. Please check folder.')
 
 token = get_oauth_token ( CLIENT_ID , CLIENT_SECRET , "us" )    # Default authorization will be US Region
 build_export_text()
