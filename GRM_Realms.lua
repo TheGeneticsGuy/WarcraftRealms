@@ -427,7 +427,9 @@ local InitializeRealms = function()
         }
     end
 
-endGRM.GetRealmNames = function()
+end
+
+GRM.GetRealmNames = function()
     if not initialized then
         InitializeRealms()
     end

@@ -11,6 +11,8 @@ load_dotenv('Client.env')   #Keeping my ID and Secret off public
 CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
 
+my_region = 'us'            # This authorization will work for all except CN
+
 # Locales
 locales = [ "en_US" , "ko_KR" , "fr_FR" , "de_DE" , "zh_CN" , "es_ES" , "zh_TW" , "es_MX" , "ru_RU" , "pt_BR" , "it_IT" ]
 regions = [ "us" , "eu" , "kr" , "tw" ]                                     # China not included due to problem with battle.net API end points
@@ -102,8 +104,6 @@ def build_export_text():
     # Start with live retail servers
     export = '\nlocal Realms = {};\n'.format('{}')
     export += 'local initialized = false\n\n'
-    export += '-- Get List of all Realm Names\n'
-
     export += '\n-- Only Initialize if ever needed. No need to pull into memory otherwise.'
     export += '\nlocal InitializeRealms = function()\n    initialized = true\n\n'
 
@@ -139,9 +139,10 @@ def build_export_text():
         if k == len ( namespaces ) - 1:
             export += '    end\n\n'
 
-    export += 'end'
+    export += 'end\n\n'
 
     # Add a function in Lua format
+    export += '-- Get List of all Realm Names\n'
     export += 'GRM.GetRealmNames = function()\n'
     export += '    if not initialized then\n        InitializeRealms()\n    end\n\n'
     export += '    local region = string.lower(GetCurrentRegionName())\n    if region == \"cn\" then\n        region = \"us\"\n    end\n\n'
@@ -157,7 +158,7 @@ def create_file ( nameOfFile , output ):
         file.write ( f'-- Realms updated on: {timestamp} UTC\n')
         file.write ( f'-- Author: Aaron Topping (GenomeWhisperer) - Using custom written program Realms.py\n\n')
         file.write(output)
-        print(f'{nameOfFile} has been created. Please check folder.')
+        print(f'{nameOfFile} has been created. Please check folder.\n')
 
-token = get_oauth_token ( CLIENT_ID , CLIENT_SECRET , "us" )    # Default authorization will be US Region
+token = get_oauth_token ( CLIENT_ID , CLIENT_SECRET , my_region )    # Default authorization will be US Region
 build_export_text()
