@@ -156,7 +156,7 @@ def create_file ( nameOfFile , output ):
 
     with open ( nameOfFile , "w" , encoding="utf-8" ) as file:
         file.write ( f'-- Realms updated on: {timestamp} UTC\n')
-        file.write ( f'-- Author: Aaron Topping (GenomeWhisperer) - Using custom written program Realms.py\n\n')
+        file.write ( f'-- Author: Aaron Topping (GenomeWhisperer) - Using custom written program WarcraftRealms.py\n\n')
         file.write(output)
         print(f'{nameOfFile} has been created. Please check folder.\n')
 
