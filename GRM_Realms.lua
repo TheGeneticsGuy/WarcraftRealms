@@ -1,11 +1,10 @@
--- Realms updated on: 2024-08-23 UTC
--- Author: Aaron Topping (GenomeWhisperer) - Using custom written program Realms.py
+-- Realms updated on: 2024-09-02 UTC
+-- Author: Aaron Topping (GenomeWhisperer) - Using custom written program WarcraftRealms.py
 
 
 local Realms = {};
 local initialized = false
 
--- Get List of all Realm Names
 
 -- Only Initialize if ever needed. No need to pull into memory otherwise.
 local InitializeRealms = function()
@@ -429,6 +428,7 @@ local InitializeRealms = function()
 
 end
 
+-- Get List of all Realm Names
 GRM.GetRealmNames = function()
     if not initialized then
         InitializeRealms()
