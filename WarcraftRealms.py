@@ -161,4 +161,8 @@ def create_file ( nameOfFile , output ):
         print(f'{nameOfFile} has been created. Please check folder.\n')
 
 token = get_oauth_token ( CLIENT_ID , CLIENT_SECRET , my_region )    # Default authorization will be US Region
+
+
+
+
 build_export_text()
