@@ -68,13 +68,29 @@ def getRealmNames ( listOfRealms ):
     return result
 
 # Validate the name
-def realmIsValid ( realmName ):
+def realmIsValid(realmName):
     if not realmName:
         return False
 
-    names = realmName.split()
-    for i in range ( len ( names ) ):
-        if len( names[i] ) > 2 and names[i].isupper() and names[i].isalpha():
+    # Filter out fake/internal realms
+    invalid_patterns = [
+        r'\bUS\d',          # US1, US2, etc.
+        r'\bAU\d',          # AU1, AU2, etc.
+        r'INST',            # internal instance realms
+        r'Account',         # account-only realms
+        r'BFA',             # expansion testing realms
+        r'SL',              # Shadowlands testing
+        r'PTR',             # Public Test Realms
+    ]
+
+    if any(re.search(p, realmName, re.IGNORECASE) for p in invalid_patterns):
+        return False
+
+    # Filter out anything with digits or too short uppercase words
+    parts = realmName.split()
+    for part in parts:
+        # Check if word is > 2 characters, all alphabetic, and all uppercase
+        if len(part) > 2 and part.isalpha() and part.isupper():
             return False
     return True
 
@@ -114,7 +130,7 @@ def build_export_text():
         if k == 0:
             build = "RETAIL"
         elif k == 1:
-            build = "CATA"
+            build = "MOP"
         elif k == 2:
             build = "CLASSICERA"
         print("Next Namespace: " , build )
