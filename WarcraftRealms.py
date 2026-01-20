@@ -4,8 +4,13 @@ import requests
 import re
 
 from dotenv import load_dotenv
+from pathlib import Path
 import os
 
+BASE_DIR = Path(__file__).resolve().parent
+ENV_PATH = BASE_DIR / ".env"
+
+load_dotenv(dotenv_path=ENV_PATH)
 load_dotenv('Client.env')   #Keeping my ID and Secret off public
 
 CLIENT_ID = os.environ.get('CLIENT_ID')
