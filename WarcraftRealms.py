@@ -79,13 +79,19 @@ def realmIsValid(realmName):
 
     # Filter out fake/internal realms
     invalid_patterns = [
-        r'\bUS\d',          # US1, US2, etc.
-        r'\bAU\d',          # AU1, AU2, etc.
-        r'INST',            # internal instance realms
-        r'Account',         # account-only realms
-        r'BFA',             # expansion testing realms
-        r'SL',              # Shadowlands testing
-        r'PTR',             # Public Test Realms
+        # Datacenter / Proxy node names (e.g., US1, US2, EU4, EU7A, EU7A-BG-RU, KR2)
+        r'\b(?:US|EU|AU|KR|TW|CN)\d',
+        
+        # English Internal/Test keywords
+        r'\b(?:Auxiliary|Partner|QA|Dev|Internal|Inst|Account|PTR|Beta|Alpha|Test|Testing)\b',
+        
+        # Localized keywords (Asian characters don't use \b word boundaries well)
+        # Korean: 보조 (Auxiliary), 파트너 (Partner), 테스트 (Test)
+        # Chinese: 辅助 (Auxiliary), 欧服/歐服 (EU Server), 美服 (US server), 测试/測試 (Test)
+        r'(?:보조|辅助|歐服|欧服|美服|測試|测试|파트너|테스트)',
+        
+        # Expansion abbreviations used for testing
+        r'\b(?:BFA|SL|DF|TWW)\b'
     ]
 
     if any(re.search(p, realmName, re.IGNORECASE) for p in invalid_patterns):
